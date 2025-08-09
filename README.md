@@ -11,6 +11,33 @@ Consulta taxas de câmbio (API pública [open.er-api.com](https://open.er-api.co
 
 ---
 
+## 🗺️ Arquitetura (Mermaid)
+
+```mermaid
+flowchart TB
+    subgraph UI["Salesforce UI"]
+        A[LWC: currencyRates]
+    end
+
+    subgraph Server["Salesforce Server"]
+        B[Apex: CurrencyService.cls]
+        C[Named Credential: ExchangeRate]
+        D[External Credential: ExchangeRateExt]
+        E[Principal: AnonymousPrincipal<br/>(mapeado em Permission Set)]
+    end
+
+    F[Public API: open.er-api.com<br/>GET /v6/latest/{BASE}]
+    G[(JSON: { rates: {...} })]
+
+    A -- @AuraEnabled --> B
+    B -- callout:ExchangeRate --> C
+    C --> D --> E
+    E --> F
+    F --> G --> B
+    B -- valores + taxas --> A
+```
+---
+
 ## 🔧 Stack
 
 - **Apex** (HttpCallout via Named Credential)
@@ -30,3 +57,16 @@ Consulta taxas de câmbio (API pública [open.er-api.com](https://open.er-api.co
 2. **Fazer o deploy**:
    ```bash
    sf project deploy start
+
+3. **Adicionar o LWC currencyRates em uma página do Lightning App Builder.**
+
+4. **Estrutura do projeto**
+
+force-app/main/default/
+├── classes
+├── lwc/currencyRates
+├── externalCredentials
+├── namedCredentials
+└── ...
+📜 **Licença**
+Este projeto é apenas uma prova de conceito (PoC) para fins educacionais e não possui garantia de uso em produção.
