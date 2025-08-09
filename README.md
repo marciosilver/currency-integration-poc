@@ -23,11 +23,11 @@ flowchart TB
         B[Apex: CurrencyService.cls]
         C[Named Credential: ExchangeRate]
         D[External Credential: ExchangeRateExt]
-        E[Principal: AnonymousPrincipal<br/>(mapeado em Permission Set)]
+        E[Principal: AnonymousPrincipal (mapeado em Permission Set)]
     end
 
-    F[Public API: open.er-api.com<br/>GET /v6/latest/{BASE}]
-    G[(JSON: { rates: {...} })]
+    F[Public API: open.er-api.com /v6/latest/{BASE}]
+    G[(JSON com rates)]
 
     A -- @AuraEnabled --> B
     B -- callout:ExchangeRate --> C
