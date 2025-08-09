@@ -1,0 +1,59 @@
+<template>
+    <lightning-card title="Currency Rates (REST PoC)">
+        <div class="slds-m-around_medium">
+            <lightning-layout vertical-align="end">
+                <lightning-layout-item size="3" padding="horizontal-small">
+                    <lightning-combobox
+                        name="base"
+                        label="Base Currency"
+                        value={base}
+                        options={baseOptions}
+                        onchange={handleBaseChange}>
+                    </lightning-combobox>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="3" padding="horizontal-small">
+                    <lightning-input type="number"
+                                     label={amountLabel}
+                                     value={amount}
+                                     min="0"
+                                     step="0.01"
+                                     onchange={handleAmountChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="4" padding="horizontal-small">
+                    <lightning-input label="Targets (comma separated)"
+                                     value={targetsRaw}
+                                     onchange={handleTargetsChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="2" padding="horizontal-small">
+                    <lightning-button label="Fetch Rates" onclick={fetchRates} variant="brand"></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <div class="slds-m-top_small slds-m-bottom_small">
+                <lightning-input type="toggle"
+                                 label="Inverse conversion (target → base)"
+                                 message-toggle-active="On"
+                                 message-toggle-inactive="Off"
+                                 checked={inverse}
+                                 onchange={handleInverseToggle}>
+                </lightning-input>
+            </div>
+
+            <template if:true={loading}>
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>
+
+            <template if:true={rows.length}>
+                <lightning-datatable key-field="code"
+                                     data={rows}
+                                     columns={columns}>
+                </lightning-datatable>
+            </template>
+        </div>
+    </lightning-card>
+</template>

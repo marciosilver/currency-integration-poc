@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+  <types>
+    <members>CurrencyService</members>
+    <name>ApexClass</name>
+  </types>
+  <types>
+    <members>currencyRates</members>
+    <name>LightningComponentBundle</name>
+  </types>
+  <types>
+    <members>ExchangeRate</members>
+    <name>NamedCredential</name>
+  </types>
+  <types>
+    <members>ExchangeRateExt</members>
+    <name>ExternalCredential</name>
+  </types>
+  <types>
+    <members>Callout_-_ExchangeRate</members>
+    <name>PermissionSet</name>
+  </types>
+  <version>60.0</version>
+</Package>
