@@ -16,17 +16,17 @@ Consulta taxas de câmbio (API pública [open.er-api.com](https://open.er-api.co
 ```mermaid
 flowchart TB
     subgraph UI["Salesforce UI"]
-        A[LWC: currencyRates]
+        A[LWC - currencyRates]
     end
 
     subgraph Server["Salesforce Server"]
-        B[Apex: CurrencyService.cls]
-        C[Named Credential: ExchangeRate]
-        D[External Credential: ExchangeRateExt]
-        E[Principal: AnonymousPrincipal (mapeado em Permission Set)]
+        B[Apex - CurrencyService.cls]
+        C[Named Credential - ExchangeRate]
+        D[External Credential - ExchangeRateExt]
+        E[Principal - AnonymousPrincipal / Permission Set]
     end
 
-    F[Public API: open.er-api.com /v6/latest/{BASE}]
+    F[Public API - open.er-api.com /v6/latest/{BASE}]
     G[(JSON com rates)]
 
     A -- @AuraEnabled --> B
@@ -35,6 +35,7 @@ flowchart TB
     E --> F
     F --> G --> B
     B -- valores + taxas --> A
+
 ```
 ---
 
